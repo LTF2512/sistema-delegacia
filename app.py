@@ -10,8 +10,6 @@ usuarios = {"admin": "123"}
 procedimentos = []
 tarefas = []
 
-# LOGIN
-
 @app.route("/", methods=["GET", "POST"])
 def login():
 if request.method == "POST":
@@ -24,8 +22,6 @@ return render_template_string(""" <h2>Login</h2> <form method="post">
 Usuário: <input name="usuario"><br>
 Senha: <input name="senha" type="password"><br> <button>Entrar</button> </form>
 """)
-
-# DASHBOARD
 
 @app.route("/dashboard")
 def dashboard():
@@ -57,8 +53,6 @@ return render_template_string("""
 """, procedimentos=procedimentos, alertas=alertas)
 ```
 
-# NOVO PROCEDIMENTO
-
 @app.route("/novo_procedimento", methods=["GET", "POST"])
 def novo_procedimento():
 if request.method == "POST":
@@ -80,8 +74,6 @@ return render_template_string("""
 """)
 ```
 
-# DETALHE DO PROCEDIMENTO
-
 @app.route("/procedimento/[int:id](int:id)", methods=["GET", "POST"])
 def detalhe(id):
 p = procedimentos[id]
@@ -98,10 +90,10 @@ return render_template_string("""
 
 <form method="post">
     <h3>Relatório</h3>
-    <textarea name="relatorio" rows="5" cols="40">{{p["relatorio"]}}</textarea>
+    <textarea name="relatorio">{{p["relatorio"]}}</textarea>
 
     <h3>Oitiva</h3>
-    <textarea name="oitiva" rows="5" cols="40">{{p["oitiva"]}}</textarea>
+    <textarea name="oitiva">{{p["oitiva"]}}</textarea>
 
     <br><button>Salvar</button>
 </form>
@@ -115,8 +107,6 @@ return render_template_string("""
 <a href="/dashboard">Voltar</a>
 """, p=p, tarefas=tarefas_proc)
 ```
-
-# NOVA TAREFA
 
 @app.route("/nova_tarefa/[int:id](int:id)", methods=["GET", "POST"])
 def nova_tarefa(id):
