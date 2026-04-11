@@ -29,10 +29,15 @@ if "user" not in session:
 return redirect("/")
 
 ```
-alertas = [
-    t for t in tarefas 
-    if t["status"] != "concluído" and datetime.strptime(t["prazo"], "%Y-%m-%d") < datetime.now()
-]
+alertas = []
+for t in tarefas:
+    if t["status"] != "concluído":
+        try:
+            prazo = datetime.strptime(t["prazo"], "%Y-%m-%d")
+            if prazo < datetime.now():
+                alertas.append(t)
+        except:
+            pass
 
 return render_template_string("""
 <h2>Dashboard</h2>
